@@ -23,4 +23,30 @@ public class User {
 		}
 		return instance;
 	}
+
+	public int getHighScore() {
+		return highScore;
+	}
+
+	public void setHighScore(int highScore) {
+		this.highScore = highScore;
+	}
+
+	public int getTotalScore() {
+		return totalScore;
+	}
+
+	public void setTotalScore(int totalScore) {
+		this.totalScore = totalScore;
+	}
+
+	public Nave getChoose() {
+		return choose;
+	}
+
+	public void setChoose(Nave choose) {
+		this.choose = choose;
+	}
+	
+	
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -11,17 +12,20 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class ThunderMenu extends Game {
 	
     private SpriteBatch batch;
-    private Texture image;
+    private BitmapFont font;
     private User usuario;
 
     @Override
     public void create() {
-        
+        batch = new SpriteBatch();
+        usuario = User.getInstance();
     }
 
     @Override
     public void render() {
-        
+        batch.begin();
+        batch.draw(usuario.getChoose().getTex(), 0, 0);
+        batch.end();
     }
 
     @Override
