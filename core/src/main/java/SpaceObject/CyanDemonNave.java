@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class DefaultNave extends Nave{
+public class CyanDemonNave extends Nave {
 	
-	private static DefaultNave instance;
+	private static CyanDemonNave instance;
 	
-	private DefaultNave() {
+	private CyanDemonNave() {
 		
-		this.tex = new Texture(Gdx.files.internal("DefaultNave.png"));
+		this.tex = new Texture(Gdx.files.internal("CyanDemon.png"));
 		this.imaTex = new Image(this.tex);
 		this.imaTex.setScale(1/5f);
 		this.x = 0;
@@ -18,16 +18,15 @@ public class DefaultNave extends Nave{
 		this.speed = 10;
 		
 		this.id = 1;
-		this.unlock = true;
+		this.unlock = false;
 		this.destruido = false;
 		this.vida = 3;
 	}
 	
-	public static DefaultNave getInstance() {
+	public static CyanDemonNave getInstance() {
 		if(instance == null) {
-			instance = new DefaultNave();
+			instance = new CyanDemonNave();
 		}
 		return instance;
 	}
-	
 }
