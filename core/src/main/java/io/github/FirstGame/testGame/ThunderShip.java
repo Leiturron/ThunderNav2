@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import Screen.MainMenuScreen;
@@ -15,12 +17,18 @@ public class ThunderShip extends Game {
 	
     private SpriteBatch batch;
     private BitmapFont font;
+    private FreeTypeFontGenerator generator;
     private User usuario;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        font = new BitmapFont();
+        
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("Quantum.otf"));
+        FreeTypeFontParameter parametro = new FreeTypeFontParameter();
+        parametro.size = 100;
+        font = generator.generateFont(parametro);
+        
         usuario = User.getInstance();
         this.setScreen(new MainMenuScreen(this));
     }
