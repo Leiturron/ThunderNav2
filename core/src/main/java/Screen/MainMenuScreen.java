@@ -34,14 +34,13 @@ public class MainMenuScreen implements Screen{
 	private Texture fondo;
 	private Image fondoImage;
 	private Image blackImage;
-	private Music music;
 
 	private LabelStyle style;
 	private Label playTex;
 	private Label skinTex;
 	private Label quitTex;
 
-	private Sound clickSound;
+	
 	
 	private float alpha;
 	private float time;
@@ -72,18 +71,12 @@ public class MainMenuScreen implements Screen{
 		blackImage.setColor(Color.BLACK);
 		AlphaAction fadeOut = Actions.fadeOut(alpha);
 		blackImage.addAction(fadeOut);
-
-		//Musica fondo
-		this.music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
+		
 		
 		//Botones
 		playTex = new Label("Play", style);
 		skinTex = new Label("Skin", style);
 		quitTex = new Label("Quit", style);
-		
-		//sonidos
-		this.clickSound = Gdx.audio.newSound(Gdx.files.internal("clickSound.ogg"));
-		
 		
 		//Setear la posicion de los botones
 		playTex.setPosition((Gdx.graphics.getWidth() - playTex.getWidth()) / 2 + 15, 450 - playTex.getHeight() / 2);
@@ -117,7 +110,6 @@ public class MainMenuScreen implements Screen{
 		if(time >= alpha) this.blackImage.remove();
 		else time += 0.007;
 		
-		music.play();
 		stage.act();
 		stage.draw();
 
@@ -148,7 +140,7 @@ public class MainMenuScreen implements Screen{
 	private void registrarListener() {
 		playTex.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				clickSound.play();
+				game.getClickSound().play();
 				playTex.setColor(Color.GRAY);
 				return true;
 			}
@@ -163,7 +155,7 @@ public class MainMenuScreen implements Screen{
 		
 		skinTex.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				clickSound.play();
+				game.getClickSound().play();
 				skinTex.setColor(Color.GRAY);
 				return true;
 			}
@@ -180,9 +172,17 @@ public class MainMenuScreen implements Screen{
 		
 		quitTex.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				System.exit(0);
+				game.getClickSound().play();
+				quitTex.setColor(Color.GRAY);
 				return true;
 			}
+
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+
+				System.exit(0);
+				super.touchUp(event, x, y, pointer, button);
+			}
+			
 			
 		});
 	}

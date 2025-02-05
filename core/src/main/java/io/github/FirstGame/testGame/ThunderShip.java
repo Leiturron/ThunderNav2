@@ -2,6 +2,8 @@ package io.github.FirstGame.testGame;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,6 +21,8 @@ public class ThunderShip extends Game {
     private BitmapFont font;
     private FreeTypeFontGenerator generator;
     private User usuario;
+    private Sound clickSound;
+    private Music music;
 
     @Override
     public void create() {
@@ -28,6 +32,8 @@ public class ThunderShip extends Game {
         FreeTypeFontParameter parametro = new FreeTypeFontParameter();
         parametro.size = 100;
         font = generator.generateFont(parametro);
+        this.clickSound = Gdx.audio.newSound(Gdx.files.internal("clickSound.ogg"));
+        this.music = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
         
         usuario = User.getInstance();
         this.setScreen(new MainMenuScreen(this));
@@ -35,6 +41,7 @@ public class ThunderShip extends Game {
 
     @Override
     public void render() {
+    	music.play();
         super.render();
     }
 
@@ -55,5 +62,8 @@ public class ThunderShip extends Game {
 		return usuario;
 	}
     
+	public Sound getClickSound() {
+		return clickSound;
+	}
     
 }

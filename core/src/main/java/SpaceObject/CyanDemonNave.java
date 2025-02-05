@@ -18,6 +18,7 @@ public class CyanDemonNave extends Nave {
 		this.speed = 10;
 		
 		this.id = 1;
+		this.name = "Cyan Demon";
 		this.unlock = false;
 		this.destruido = false;
 		this.vida = 3;

@@ -18,6 +18,7 @@ public class DefaultNave extends Nave{
 		this.speed = 10;
 		
 		this.id = 1;
+		this.name = "Nova";
 		this.unlock = true;
 		this.destruido = false;
 		this.vida = 3;
