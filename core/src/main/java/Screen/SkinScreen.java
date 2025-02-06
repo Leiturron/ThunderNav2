@@ -28,8 +28,10 @@ public class SkinScreen implements Screen {
 	private LabelStyle style;
 	private Stage stage;
 	private Label backTex;
+	private Label nextTex;
+	private Label prevTex;
 	
-	private byte pos;
+	private int pos;
 	private Array<Nave> naveArray;
 	private Array<Label> naveNameLabel;
 	
@@ -42,9 +44,20 @@ public class SkinScreen implements Screen {
 		this.pos = 0;
 		this.style = new LabelStyle(font, Color.WHITE);
 		
+		//Configurar los botones 
 		this.backTex = new Label("Back", style);
+		this.nextTex = new Label("Next", style);
+		this.prevTex = new Label("Prev", style);
+		
+		//1. boton para regresar al menu principal
 		this.backTex.setFontScale(0.5f);
 		this.backTex.setPosition(25, 20 - backTex.getHeight() / 4);
+		
+		//2. boton para avanzar
+		this.nextTex.setPosition(Gdx.graphics.getWidth() - nextTex.getWidth() / 2 - 150, Gdx.graphics.getHeight() / 2 - nextTex.getHeight() / 2);
+		
+		//3. boton para retroceder
+		this.prevTex.setPosition(50, Gdx.graphics.getHeight() / 2 - nextTex.getHeight() / 2);
 		
 		this.naveArray = new Array<Nave>();
 		addNaveToNaveArray();
@@ -74,6 +87,8 @@ public class SkinScreen implements Screen {
 		naveArray.get(pos).getImage().draw(batch, 1);
 		naveNameLabel.get(pos).draw(batch, 1);
 		backTex.draw(batch, 1);
+		prevTex.draw(batch, 1);
+		nextTex.draw(batch, 1);
 		
 		batch.end();
 	}
@@ -144,22 +159,44 @@ public class SkinScreen implements Screen {
 		
 		//Operacion 3-2:
 		this.stage.addActor(backTex);
+		this.stage.addActor(prevTex);
+		this.stage.addActor(nextTex);
+		
 	}
 	
 	private void registrarListener() {
-		stage.addListener(new InputListener(){
+		prevTex.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				game.getClickSound().play();
+				prevTex.setColor(Color.GRAY);
+				return true;
+			}
 
 			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				if(pos == 0) {
+					pos = naveArray.size - 1;
+				}
+				else pos--;
+				prevTex.setColor(Color.WHITE);
+			}
+		});
+		
+		nextTex.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				// TODO Auto-generated method stub
+				game.getClickSound().play();
+				nextTex.setColor(Color.GRAY);
+				return true;
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				if(pos == naveArray.size - 1) {
 					pos = 0;
 				}
 				else pos++;
-				
-				return super.touchDown(event, x, y, pointer, button);
+				nextTex.setColor(Color.WHITE);
 			}
-			
 		});
 		
 		backTex.addListener(new InputListener() {
